@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione della Memoria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Rappresentazione della Gestione della Memoria</h1>
+    
+    <div class="memory-container">
+        <div class="segment text-segment">
+            <h2>Text Segment</h2>
+            <p>Contiene il codice eseguibile.</p>
+        </div>
+        
+        <div class="segment data-segment">
+            <h2>Data Segment</h2>
+            <p>Contiene variabili globali e statiche.</p>
+        </div>
+        
+        <div class="segment heap-segment">
+            <h2>Heap Segment</h2>
+            <p>Contiene la memoria allocata dinamicamente.</p>
+            <button onclick="allocateMemory()">Allocare Memoria</button>
+            <button onclick="deallocateMemory()">Deallocare Memoria</button>
+            <div id="heap-memory"></div>
+        </div>
+        
+        <div class="segment stack-segment">
+            <h2>Stack Segment</h2>
+            <p>Contiene le chiamate alle funzioni e le variabili locali.</p>
+            <button onclick="addToStack()">Aggiungi Chiamata Funzione</button>
+            <div id="stack-memory"></div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <h3>Legenda</h3>
+        <ul>
+            <li><span class="text-color"></span> Text Segment - Codice eseguibile</li>
+            <li><span class="data-color"></span> Data Segment - Variabili globali e statiche</li>
+            <li><span class="heap-color"></span> Heap Segment - Memoria allocata dinamicamente</li>
+            <li><span class="stack-color"></span> Stack Segment - Chiamate alle funzioni e variabili locali</li>
+        </ul>
+    </div>
+
+    <script>
+        let heapMemory = [];
+
+    function allocateMemory() {
+        heapMemory.push("Memoria Allocata");
+        renderHeapMemory();
+    }
+
+    function deallocateMemory() {
+        heapMemory.pop();
+        renderHeapMemory();
+    }
+
+    function renderHeapMemory() {
+        const heapDiv = document.getElementById("heap-memory");
+        heapDiv.innerHTML = ""; // Pulisce la memoria corrente
+        heapMemory.forEach((memoryBlock, index) => {
+            const blockDiv = document.createElement("div");
+            blockDiv.className = "heap-block";
+            blockDiv.textContent = memoryBlock;
+            heapDiv.appendChild(blockDiv);
+        });
+    }
+
+// Simulazione della crescita dello Stack
+    let stackCalls = [];
+
+    function addToStack() {
+        stackCalls.push("Funzione Chiamata");
+        renderStackMemory();
+    }
+
+    function renderStackMemory() {
+        const stackDiv = document.getElementById("stack-memory");
+        stackDiv.innerHTML = ""; // Pulisce la memoria corrente
+        stackCalls.forEach((call, index) => {
+            const callDiv = document.createElement("div");
+            callDiv.className = "stack-call";
+            callDiv.textContent = call;
+            stackDiv.appendChild(callDiv);
+        });
+    }
+    </script>
+</body>
+</html>
 
